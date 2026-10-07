@@ -258,7 +258,7 @@ The evaluated models produced the following results:
 | ------------------- | ------: | -------: | --------: | -----: |
 | Logistic Regression |    0.86 |     0.64 |      0.52 |   0.84 |
 | Random Forest       |    0.85 |     0.65 |      0.56 |   0.78 |
-| XGBoost             |    0.85 |     0.64 |      0.53 |   0.80 |
+| XGBoost             |    0.85 |     0.64 |      0.53 |   0.80 | 
 
 ### Metrics Used
 
@@ -397,7 +397,7 @@ Possible applications include:
 
 The application is deployed using **Streamlit**.
 
-Users can enter customer information through the web interface and receive a real-time prediction.
+Users can enter customer information through the web interface and receive a real-time prediction. 
 
 ### Application Features
 
@@ -638,7 +638,7 @@ Feature Engineering
 Model Development
       ↓
 Evaluation
-      ↓
+      ↓ 
 Threshold Optimization
       ↓
 Explainability
@@ -646,8 +646,8 @@ Explainability
 Deployment
 ```
 
-The project demonstrates how predictive modeling can be combined with **data analysis, explainability, and deployment** to create a practical machine learning application.
-
+The project demonstrates how predictive modeling can be combined with **data analysis, explainability, and deployment** to create a practical machine learning application.    
+  
 ---
 
 ## ⭐ If you found this project useful
