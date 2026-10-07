@@ -258,7 +258,7 @@ The evaluated models produced the following results:
 | ------------------- | ------: | -------: | --------: | -----: |
 | Logistic Regression |    0.86 |     0.64 |      0.52 |   0.84 |
 | Random Forest       |    0.85 |     0.65 |      0.56 |   0.78 |
-| XGBoost             |    0.85 |     0.63 |      0.55 |   0.75 |
+| XGBoost             |    0.85 |     0.64 |      0.53 |   0.80 |
 
 ### Metrics Used
 
