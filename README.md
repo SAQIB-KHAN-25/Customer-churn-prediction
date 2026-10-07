@@ -1,496 +1,205 @@
-# 📊 Customer Churn Prediction App
+# Customer Churn Prediction
 
-An end-to-end **Machine Learning project** that predicts customer churn probability using customer demographics, account information, subscribed services, and billing data.
+A machine learning project that predicts whether a customer is likely to churn using **Logistic Regression, Random Forest, and XGBoost**.
 
-The project focuses not only on model training, but on the **complete data science workflow** — from understanding the problem and performing EDA to preprocessing, feature engineering, model comparison, threshold optimization, explainability, and deployment.
+The project includes data preprocessing, exploratory data analysis, model training, evaluation, and a **Streamlit web application** for interactive churn prediction and model interpretation using SHAP.
 
 ---
 
 ## 📌 Project Overview
 
-Customer churn is an important business problem for subscription-based companies. Identifying customers who are likely to leave can help businesses design targeted retention strategies.
+Customer churn refers to customers discontinuing their services. Predicting customer churn helps businesses identify customers who are likely to leave and take preventive actions.
 
-This project develops a machine learning system that:
+This project uses the **Telco Customer Churn dataset** to train and compare multiple machine learning models.
 
-* Analyzes customer data
-* Performs exploratory data analysis
-* Preprocesses numerical and categorical features
-* Handles class imbalance
-* Trains and compares multiple ML models
-* Optimizes the classification threshold
-* Explains predictions using SHAP
-* Provides real-time churn probability predictions
-* Deploys the trained model through Streamlit
-
-The goal is to demonstrate how a **real-world data science project can be approached from problem definition to deployment**.
-
----
-
-# 🎯 Problem Statement
-
-Given information about a customer, predict whether the customer is likely to churn.
-
-### Input
-
-The model uses information such as:
-
-* Customer demographics
-* Tenure
-* Contract type
-* Internet service
-* Payment method
-* Subscribed services
-* Monthly charges
-* Total charges
-* Account information
-
-### Output
-
-The application provides:
+The trained models are integrated into a Streamlit application where users can enter customer details and obtain:
 
 * Churn prediction
 * Churn probability
-* Model-based insights
-* SHAP explanations
+* Selected model information
+* SHAP-based prediction explanation
+* Model performance comparison
+* Feature importance
+* Business insights
 
 ---
 
-# 📂 Dataset
+## 🚀 Features
 
-This project uses the **Telco Customer Churn Dataset**.
+* Customer churn prediction
+* Three machine learning models:
 
-**Dataset:**
-https://www.kaggle.com/datasets/blastchar/telco-customer-churn
-
-### Dataset Statistics
-
-* **7,043 customer records**
-* **21 features**
-* Target variable: `Churn`
-
-### Feature Categories
-
-| Category              | Examples                                            |
-| --------------------- | --------------------------------------------------- |
-| Customer Demographics | Gender, SeniorCitizen, Partner, Dependents          |
-| Account Information   | Tenure, Contract, Billing Method                    |
-| Services              | Internet Service, Streaming, Security, Tech Support |
-| Billing               | Monthly Charges, Total Charges                      |
-| Target                | Churn                                               |
+  * Logistic Regression
+  * Random Forest
+  * XGBoost
+* Interactive Streamlit interface
+* Model selection
+* Churn probability prediction
+* SHAP-based prediction explanations
+* Feature importance visualization
+* Model performance comparison
+* Business insights for customer retention
 
 ---
 
-# 🔄 Data Science Workflow
+## 🧠 Machine Learning Models
 
-The project follows an end-to-end machine learning workflow:
+The project uses the following models:
 
-```text
-Business Understanding
-        ↓
-Data Collection
-        ↓
-Data Understanding
-        ↓
-Exploratory Data Analysis
-        ↓
-Data Cleaning
-        ↓
-Feature Engineering
-        ↓
-Preprocessing
-        ↓
-Train/Test Split
-        ↓
-Model Training
-        ↓
-Model Comparison
-        ↓
-Class Imbalance Handling
-        ↓
-Threshold Optimization
-        ↓
-Model Explainability
-        ↓
-Deployment
-```
+### 1. Logistic Regression
+
+A linear classification algorithm used as a baseline model for predicting customer churn.
+
+### 2. Random Forest
+
+An ensemble learning algorithm that combines multiple decision trees to improve prediction performance.
+
+### 3. XGBoost
+
+A gradient boosting algorithm designed for efficient and accurate classification.
 
 ---
 
-# 🔎 Exploratory Data Analysis
+## 📊 Model Performance
 
-EDA was performed to understand customer behavior and identify patterns associated with churn.
-
-Areas explored include:
-
-* Churn distribution
-* Customer tenure
-* Contract types
-* Monthly charges
-* Internet service
-* Value-added services
-* Customer demographics
-* Relationship between services and churn
-
-### Important Observations
-
-Customers with:
-
-* Shorter tenure
-* Month-to-month contracts
-* Higher monthly charges
-* Fiber optic internet service
-* Lack of security and technical support services
-
-show higher churn rates in the dataset.
-
----
-
-# 🛠️ Data Preprocessing
-
-The dataset contains both numerical and categorical variables, so separate preprocessing strategies were applied.
-
-## Numerical Features
-
-Examples:
-
-```text
-Tenure
-MonthlyCharges
-TotalCharges
-```
-
-Processing:
-
-* Missing-value handling
-* Standard scaling
-
-## Categorical Features
-
-Examples:
-
-```text
-Gender
-Contract
-InternetService
-PaymentMethod
-Service-related features
-```
-
-Processing:
-
-* Missing-value handling
-* One-hot encoding
-
-All preprocessing is handled using **Scikit-learn's `ColumnTransformer`**, making the preprocessing pipeline reproducible and consistent between training and prediction.
-
----
-
-# ⚙️ Feature Engineering
-
-Feature engineering was used to prepare the raw customer information for machine learning.
-
-The process focuses on transforming customer attributes into representations that can be effectively used by the models.
-
-Important customer characteristics include:
-
-* Tenure
-* Contract type
-* Monthly charges
-* Total charges
-* Internet service
-* Subscription services
-* Security services
-* Technical support
-
----
-
-# 🤖 Machine Learning Models
-
-Three machine learning algorithms were evaluated.
-
-## 1. Logistic Regression
-
-Used as an interpretable baseline model.
-
-Advantages:
-
-* Simple
-* Interpretable
-* Effective baseline
-* Useful for understanding feature relationships
-
----
-
-## 2. Random Forest
-
-An ensemble learning model capable of capturing non-linear relationships.
-
-Advantages:
-
-* Handles non-linear patterns
-* Ensemble-based
-* Robust model
-* Provides useful feature importance information
-
----
-
-## 3. XGBoost
-
-A gradient boosting algorithm used for more advanced modeling.
-
-The implementation uses:
-
-```text
-scale_pos_weight
-```
-
-to address class imbalance.
-
-Additional learning and regularization parameters were considered during model development.
-
----
-
-# 📈 Model Performance
-
-The evaluated models produced the following results:
+The models were evaluated using ROC-AUC, F1 Score, Precision, and Recall.
 
 | Model               | ROC-AUC | F1 Score | Precision | Recall |
 | ------------------- | ------: | -------: | --------: | -----: |
 | Logistic Regression |    0.86 |     0.64 |      0.52 |   0.84 |
 | Random Forest       |    0.85 |     0.65 |      0.56 |   0.78 |
-| XGBoost             |    0.85 |     0.64 |      0.53 |   0.80 | 
-
-### Metrics Used
-
-**ROC-AUC**
-Measures how effectively the model distinguishes between churn and non-churn customers across classification thresholds.
-
-**Precision**
-Measures how many customers predicted as churners actually churned.
-
-**Recall**
-Measures how many actual churners were successfully identified.
-
-**F1 Score**
-Provides a balance between precision and recall.
+| XGBoost             |    0.85 |     0.64 |      0.53 |   0.80 |
 
 ---
 
-# ⚖️ Class Imbalance & Threshold Optimization
-
-Customer churn datasets commonly contain fewer churned customers than non-churned customers.
-
-Therefore, accuracy alone is not sufficient for evaluating the model.
-
-Instead, the project considers:
-
-* Precision
-* Recall
-* F1 Score
-* ROC-AUC
-
-### Threshold Optimization
-
-Rather than relying only on the default:
+## 🗂️ Project Structure
 
 ```text
-Threshold = 0.50
-```
-
-different classification thresholds were evaluated.
-
-This allows the business to adjust the model according to its preferred balance between:
-
-```text
-False Positives
-        ↕
-False Negatives
-```
-
-For example, a business that wants to identify more potentially churning customers may prefer a threshold that increases recall.
-
----
-
-# 🔍 Model Explainability with SHAP
-
-Machine learning predictions are more useful when users can understand **why** a prediction was made.
-
-This project uses **SHAP (SHapley Additive Explanations)** to interpret the model.
-
-SHAP is used to:
-
-* Explain individual predictions
-* Identify important features
-* Understand global feature importance
-* Analyze factors contributing to churn probability
-
-### Key Insights
-
-The analysis identified patterns such as:
-
-* 📉 Lower tenure being associated with higher churn risk
-* 📉 Month-to-month contracts being strongly associated with churn
-* 📈 Higher monthly charges being associated with increased churn probability
-* ❌ Lack of security and technical-support services being associated with higher churn
-
----
-
-# 💡 Business Insights
-
-The analysis suggests several areas businesses could investigate for customer retention.
-
-### Contract Type
-
-Customers on month-to-month contracts show higher churn probability.
-
-### Customer Tenure
-
-Customers with shorter tenure are more likely to churn.
-
-### Monthly Charges
-
-Higher monthly charges are associated with increased churn.
-
-### Internet Service
-
-Customers using fiber optic service show higher churn rates in this dataset.
-
-### Value-Added Services
-
-Customers without services such as:
-
-* Online Security
-* Tech Support
-* Device Protection
-
-show higher churn rates.
-
----
-
-# 💼 Potential Business Applications
-
-The model can support customer-retention workflows such as:
-
-```text
-Customer Data
-      ↓
-Churn Probability
-      ↓
-Risk Identification
-      ↓
-Customer Segmentation
-      ↓
-Retention Strategy
-```
-
-Possible applications include:
-
-* Identifying high-risk customers
-* Prioritizing retention campaigns
-* Designing targeted offers
-* Investigating service-related churn
-* Supporting customer success teams
-
----
-
-# 🌐 Deployment
-
-The application is deployed using **Streamlit**.
-
-Users can enter customer information through the web interface and receive a real-time prediction. 
-
-### Application Features
-
-* Customer information input
-* Churn probability prediction
-* Model prediction
-* SHAP-based explanation
-* Interactive interface
-
----
-
-# 🧰 Tech Stack
-
-### Programming
-
-* Python
-
-### Data Analysis
-
-* Pandas
-* NumPy
-* Matplotlib
-
-### Machine Learning
-
-* Scikit-learn
-* XGBoost
-
-### Explainability
-
-* SHAP
-
-### Deployment
-
-* Streamlit
-
-### Model Persistence
-
-* Joblib
-
----
-
-# 📁 Project Structure
-
-```text
-customer-churn-prediction/
+Customer-churn-prediction/
+│
+├── app/
+│   └── app.py
 │
 ├── data/
-│   └── Telco_customer_churn
-│
-├── notebooks/
-│   └── churn_analysis.ipynb
+│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
 │
 ├── models/
-│   └── trained_model.pkl
+│   ├── logistic_model.pkl
+│   ├── rf_model.pkl
+│   └── xgb_model.pkl
 │
-├── app.py
-├── requirements.txt
+├── notebook/
+│   └── churn.ipynb
+│
 ├── README.md
-└── .gitignore
+└── requirements.txt
 ```
 
 ---
 
-# ⚙️ Installation
+## 📥 Dataset
 
-## 1. Clone the Repository
+This project uses the **Telco Customer Churn dataset**.
+
+### Dataset Source
+
+The dataset can be downloaded from Kaggle:
+
+https://www.kaggle.com/datasets/blastchar/telco-customer-churn
+
+### Dataset Filename
+
+After downloading the dataset, the CSV file should be named:
+
+```text
+WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+### Dataset Location
+
+Place the downloaded CSV file inside the project's `data` directory:
+
+```text
+Customer-churn-prediction/
+└── data/
+    └── WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+If the `data` folder does not exist, create it manually.
+
+### Windows PowerShell
+
+From the project root:
+
+```powershell
+mkdir data
+```
+
+Then copy the downloaded CSV file into:
+
+```text
+data/WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+### macOS / Linux
+
+From the project root:
 
 ```bash
-git clone https://github.com/<SAQIB-KHAN-25>/customer-churn-prediction.git
+mkdir -p data
+```
+
+Then copy the downloaded CSV file into:
+
+```text
+data/WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+> **Important:** Make sure the filename and folder location are exactly as shown above.
+
+---
+
+## ⚙️ Installation and Setup
+
+### 1. Clone the Repository
+
+Open a terminal or command prompt and run:
+
+```bash
+git clone https://github.com/SAQIB-KHAN-25/Customer-churn-prediction.git
 ```
 
 Move into the project directory:
 
 ```bash
-cd customer-churn-prediction
+cd Customer-churn-prediction
 ```
 
 ---
 
-## 2. Create a Virtual Environment
+### 2. Create a Virtual Environment
 
-```bash
+It is recommended to create a virtual environment before installing the dependencies.
+
+#### Windows
+
+```powershell
 python -m venv venv
 ```
 
-### Windows
+Activate it:
 
-```bash
+```powershell
 venv\Scripts\activate
 ```
 
-### macOS / Linux
+#### macOS / Linux
+
+```bash
+python3 -m venv venv
+```
+
+Activate it:
 
 ```bash
 source venv/bin/activate
@@ -498,7 +207,9 @@ source venv/bin/activate
 
 ---
 
-## 3. Install Dependencies
+### 3. Install Dependencies
+
+Install all required Python packages using:
 
 ```bash
 pip install -r requirements.txt
@@ -506,152 +217,256 @@ pip install -r requirements.txt
 
 ---
 
-# ▶️ Run the Application
+### 4. Add the Dataset
 
-Start the Streamlit application:
-
-```bash
-streamlit run app.py
-```
-
-The application will open in your browser.
-
----
-
-# 📦 Requirements
-
-Example dependencies include:
+Download the Telco Customer Churn dataset from Kaggle and place it at:
 
 ```text
-pandas
-numpy
-scikit-learn
-xgboost
-shap
-matplotlib
-streamlit
-joblib
+data/WA_Fn-UseC_-Telco-Customer-Churn.csv
 ```
 
-Install them using:
+Your project should now contain:
 
-```bash
-pip install -r requirements.txt
+```text
+Customer-churn-prediction/
+├── app/
+│   └── app.py
+├── data/
+│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
+├── models/
+│   ├── logistic_model.pkl
+│   ├── rf_model.pkl
+│   └── xgb_model.pkl
+├── notebook/
+│   └── churn.ipynb
+├── README.md
+└── requirements.txt
 ```
 
 ---
 
-# 📊 Project Learning Outcomes
+## ▶️ Running the Application
 
-This project was developed to understand the practical workflow of a data science project rather than focusing only on model accuracy.
+The Streamlit application is located inside the `app` folder.
 
-Through this project, the following concepts were practiced:
+From the project root, run:
 
-### Data Understanding
+```bash
+streamlit run app/app.py
+```
 
-* Understanding the business problem
-* Understanding the dataset
-* Identifying target and predictor variables
+After running the command, Streamlit will provide a local URL, usually similar to:
 
-### EDA
+```text
+http://localhost:8501
+```
 
-* Exploring distributions
-* Identifying patterns
-* Studying relationships between features and target
-* Understanding churn behavior
+Open the URL in your web browser to use the application.
 
-### Data Preprocessing
+---
 
-* Missing-value handling
-* Numerical feature scaling
-* Categorical encoding
-* Building preprocessing pipelines
+## 🖥️ Using the Application
+
+### Prediction
+
+The Prediction tab allows users to:
+
+1. Select a machine learning model.
+2. Enter customer information.
+3. Predict whether the customer is likely to churn.
+4. View the predicted churn probability.
+5. View a SHAP-based explanation of the prediction.
+
+Available models:
+
+```text
+Logistic Regression
+Random Forest
+XGBoost
+```
+
+The SHAP explanation corresponds to the **model selected by the user**.
+
+---
+
+## 📈 Model Insights
+
+The Model Insights section provides information about the trained models, including:
+
+* Feature importance
+* SHAP-based model interpretation
+* Model performance comparison
+* ROC-AUC
+* F1 Score
+* Precision
+* Recall
+
+These insights help understand which customer characteristics have an important influence on churn prediction.
+
+---
+
+## 🔍 Technologies Used
+
+### Programming Language
+
+* Python
 
 ### Machine Learning
 
-* Baseline model development
-* Ensemble models
-* Gradient boosting
-* Model comparison
-* Evaluation metrics
+* Scikit-learn
+* XGBoost
 
-### Imbalanced Classification
+### Data Processing
 
-* Understanding class imbalance
-* Precision vs recall
-* Threshold tuning
+* Pandas
+* NumPy
 
-### Explainable AI
+### Visualization
 
+* Matplotlib
 * SHAP
-* Individual prediction explanations
-* Feature importance
 
-### Deployment
+### Web Application
 
-* Saving trained models
-* Building a Streamlit interface
-* Deploying an ML application
+* Streamlit
 
----
+### Model Serialization
 
-# 🚧 Future Improvements
-
-Potential improvements include:
-
-* Hyperparameter optimization
-* Cross-validation
-* Additional feature engineering
-* More advanced ensemble techniques
-* Model monitoring
-* Automated retraining
-* Customer segmentation
-* Cost-sensitive evaluation
-* Integration with a customer-management system
-* Improved visualization and analytics dashboard
+* Joblib
 
 ---
 
-# 📌 Conclusion
-
-This project demonstrates an **end-to-end approach to building a machine learning solution for customer churn prediction**.
-
-Rather than treating machine learning as simply:
+## 📚 Project Workflow
 
 ```text
-Data → Model → Accuracy
+Dataset
+   ↓
+Data Cleaning
+   ↓
+Exploratory Data Analysis
+   ↓
+Data Preprocessing
+   ↓
+Train/Test Split
+   ↓
+Model Training
+   ↓
+Model Evaluation
+   ↓
+Model Saving
+   ↓
+Streamlit Application
+   ↓
+Churn Prediction
+   ↓
+SHAP Explanation
 ```
 
-the project follows a broader workflow:
-
-```text
-Business Problem
-      ↓
-Data Understanding
-      ↓
-EDA
-      ↓
-Preprocessing
-      ↓
-Feature Engineering
-      ↓
-Model Development
-      ↓
-Evaluation
-      ↓ 
-Threshold Optimization
-      ↓
-Explainability
-      ↓
-Deployment
-```
-
-The project demonstrates how predictive modeling can be combined with **data analysis, explainability, and deployment** to create a practical machine learning application.    
-  
 ---
 
-## ⭐ If you found this project useful
+## 🎯 Objectives
 
-Feel free to explore the repository, try the live application, and experiment with the models and preprocessing pipeline.
+The main objectives of this project are:
 
-**Built with Python, Scikit-learn, XGBoost, SHAP & Streamlit.**
+* To analyze customer churn behavior.
+* To preprocess customer data for machine learning.
+* To train multiple classification models.
+* To compare model performance.
+* To predict customer churn probability.
+* To provide interpretable model predictions using SHAP.
+* To provide useful insights that can support customer retention strategies.
+
+---
+
+## 💡 Business Insights
+
+Customer churn prediction can help businesses:
+
+* Identify customers who are likely to leave.
+* Understand important factors associated with churn.
+* Prioritize high-risk customers.
+* Develop targeted retention strategies.
+* Improve customer satisfaction.
+* Reduce customer acquisition and replacement costs.
+
+---
+
+## 📝 Notebook
+
+The complete data analysis, preprocessing, model training, evaluation, and experimentation can be found in:
+
+```text
+notebook/churn.ipynb
+```
+
+---
+
+## 📦 Trained Models
+
+The trained machine learning models are stored in the `models` directory:
+
+```text
+models/
+├── logistic_model.pkl
+├── rf_model.pkl
+└── xgb_model.pkl
+```
+
+These models are loaded by the Streamlit application for making predictions.
+
+---
+
+## 🛠️ Troubleshooting
+
+### `FileNotFoundError` for the dataset
+
+Make sure the dataset exists at exactly:
+
+```text
+data/WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+Also make sure the filename has not been changed.
+
+---
+
+### `streamlit: command not found`
+
+Make sure your virtual environment is activated and Streamlit is installed:
+
+```bash
+pip install -r requirements.txt
+```
+
+You can also run:
+
+```bash
+python -m streamlit run app/app.py
+```
+
+---
+
+### Model file not found
+
+Make sure the following files exist:
+
+```text
+models/logistic_model.pkl
+models/rf_model.pkl
+models/xgb_model.pkl
+```
+
+---
+
+## 👨‍💻 Author
+
+**Saqib Ahmed Khan**
+
+Information Science and Engineering
+Visvesvaraya Technological University (VTU)
+
+---
+
+## 📄 License
+
+This project is intended for educational and learning purposes.
