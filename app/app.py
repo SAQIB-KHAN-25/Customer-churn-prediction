@@ -194,9 +194,9 @@ with tab2:
     performance_df = pd.DataFrame({
     "Model": ["Logistic Regression", "Random Forest", "XGBoost"],
     "ROC AUC": [0.86, 0.85, 0.85],
-    "F1 Score": [0.64, 0.65, 0.63],
-    "Precision": [0.52, 0.56, 0.55],
-    "Recall": [0.84, 0.78, 0.75]
+    "F1 Score": [0.64, 0.65, 0.64],
+    "Precision": [0.52, 0.56, 0.53],
+    "Recall": [0.84, 0.78, 0.80]
 })
 
     st.subheader("Model Performance")
