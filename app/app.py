@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -97,8 +98,10 @@ with tab1:
         X_transformed,
         columns=feature_names
     )
-    explainer = shap.TreeExplainer(rf_classifier)
 
+    # ========================================================
+    # MODEL SELECTION
+    # ========================================================
 
     if model_choice == "Logistic Regression":
         model = logistic_model
@@ -120,20 +123,57 @@ with tab1:
             st.warning("Medium Risk Customer")
         else:
             st.success("Low Risk Customer")
+
         st.write(f"Model Used: **{model_choice}**")
         st.subheader("Prediction Explanation (SHAP)")
 
         X_transformed = preprocessor.transform(data)
 
-        explainer = shap.Explainer(rf_classifier)
-        shap_values = explainer(X_transformed_df)
+        # ====================================================
+        # SHAP EXPLANATION FOR SELECTED MODEL
+        # ====================================================
+
+        if model_choice == "Random Forest":
+
+            explainer = shap.Explainer(
+                rf_model.named_steps["model"]
+            )
+
+            shap_values = explainer(X_transformed_df)
+
+        elif model_choice == "XGBoost":
+
+            explainer = shap.Explainer(
+                xgb_model.named_steps["model"]
+            )
+
+            shap_values = explainer(X_transformed_df)
+
+        else:
+
+            explainer = shap.Explainer(
+                logistic_model.named_steps["model"],
+                X_transformed_df
+            )
+
+            shap_values = explainer(X_transformed_df)
 
         fig = plt.figure()
 
-        shap.plots.waterfall(
-            shap_values[0, :, 1],
-            show=False
-        )
+        if model_choice == "Logistic Regression":
+
+            shap.plots.waterfall(
+                shap_values[0],
+                show=False
+            )
+
+        else:
+
+            shap.plots.waterfall(
+                shap_values[0, :, 1],
+                show=False
+            )
+
         st.pyplot(fig)
 
 with tab2:
@@ -235,3 +275,4 @@ Based on the model analysis and feature importance results, several factors sign
 • Provide **special retention offers for high-charge customers** to reduce churn risk.  
 • Focus retention campaigns on **new customers with low tenure**.
 """)
+
